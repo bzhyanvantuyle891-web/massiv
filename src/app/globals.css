@@ -18,47 +18,46 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: var(--font-main) !important;
+    font-family: var(--font-main);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
-    letter-spacing: -0.01em;
-    font-size: 14px; /* Уменьшенный базовый шрифт */
+    font-size: 15px;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-main) !important;
+    font-family: var(--font-main);
     font-weight: 700;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.02em;
   }
 }
 
 @layer components {
   .luxury-card {
-    background-color: rgba(18, 18, 18, 0.6);
+    background-color: rgba(18, 18, 18, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
     border-radius: var(--radius-lg);
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.5s ease;
     position: relative;
     overflow: hidden;
   }
   
   .luxury-card:hover {
     border-color: rgba(196, 164, 132, 0.3);
-    transform: translateY(-3px);
+    background-color: rgba(22, 22, 22, 0.6);
   }
   
   .premium-button {
-    padding: 0.85rem 1.75rem; /* Компактные кнопки */
+    padding: 0.8rem 1.5rem;
     background-color: var(--color-foreground);
     color: var(--color-background);
-    border-radius: 100px;
-    font-size: 0.7rem;
-    font-weight: 700;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.3s ease;
     border: 1px solid transparent;
     cursor: pointer;
     display: inline-flex;
@@ -68,21 +67,43 @@
   }
   
   .premium-button:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .premium-button-outline {
+    padding: 0.8rem 1.5rem;
+    background-color: transparent;
+    color: var(--color-foreground);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .premium-button-outline:hover {
+    background-color: var(--color-foreground);
+    color: var(--color-background);
   }
 
   .glass-nav {
-    background: rgba(8, 8, 8, 0.6);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.03);
+    background: rgba(8, 8, 8, 0.4);
+    backdrop-filter: blur(15px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 100px;
   }
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 3px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -90,5 +111,9 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c4a484;
 }

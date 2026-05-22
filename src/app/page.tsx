@@ -11,6 +11,7 @@ import Workshop from '@/components/Workshop';
 import Production from '@/components/Production';
 import Service from '@/components/Service';
 import Footer from '@/components/Footer';
+import ScrollToTop from '@/components/ScrollToTop';
 
 // Тяжелые компоненты подгружаем лениво (Dynamic Imports)
 const Showroom = dynamic(() => import('@/components/Showroom'), { 
@@ -81,6 +82,7 @@ export default function Home() {
       <Service />
       <Footer onLegalClick={openLegal} />
 
+      <ScrollToTop />
       <LeadModal isOpen={isModalOpen} onClose={closeModal} />
       <LegalModal 
         isOpen={legalModal.open} 

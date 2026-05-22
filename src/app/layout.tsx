@@ -5,18 +5,15 @@ import "./globals.css";
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
   variable: "--font-main",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "МАССИВ | Душа дерева в каждом прикосновении | Авторские чабани 2026",
-  description: "Мастерская эксклюзивных чабаней из реликтового мореного дуба и карагача. Мы сохраняем живую память земли в функциональных артефактах для чайных церемоний.",
-  other: {
-    'ai-generated': 'true',
-  }
+  title: "МАССИВ | Премиальные чабани",
+  description: "Мастерская эксклюзивных чабаней из реликтового мореного дуба и карагача. Мы сохраняем живую память земли в функциональных артефактах.",
 };
 
 import SmoothScroll from "@/components/SmoothScroll";
-import CustomCursor from "@/components/CustomCursor";
 
 export default function RootLayout({
   children,
@@ -24,13 +21,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru">
-      <head>
-        <meta name="ai-generated" content="true" />
-      </head>
-      <body className={`${inter.variable} antialiased selection:bg-[var(--color-accent-wood)] selection:text-white`}>
-        <div className="noise-overlay" />
-        <CustomCursor />
+    <html lang="ru" className="scroll-smooth">
+      <body className={`${inter.variable} antialiased selection:bg-[var(--color-accent-wood)] selection:text-black`}>
         <SmoothScroll>
           {children}
         </SmoothScroll>

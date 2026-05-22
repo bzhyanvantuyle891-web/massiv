@@ -13,7 +13,7 @@ export default function Navbar({ onConnectClick }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -38,55 +38,53 @@ export default function Navbar({ onConnectClick }: NavbarProps) {
   return (
     <>
       <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-4 md:top-8 left-1/2 -translate-x-1/2 z-[100] w-[calc(100%-1.5rem)] md:w-[calc(100%-4rem)] max-w-6xl"
+        className={`fixed left-1/2 -translate-x-1/2 z-[100] w-[calc(100%-2rem)] max-w-5xl transition-all duration-700 ${
+          isScrolled ? 'top-4' : 'top-6 md:top-8'
+        }`}
       >
-        <nav 
-          className={`glass-nav px-6 md:px-12 py-3 md:py-5 flex items-center justify-between transition-all duration-700 ${
-            isScrolled ? 'py-2 md:py-3 bg-black/80 scale-[0.98]' : 'bg-transparent'
-          }`}
-        >
+        <nav className="bg-[#0f0f0f]/80 backdrop-blur-2xl border border-white/10 rounded-full px-6 md:px-8 py-3 flex items-center justify-between shadow-2xl shadow-black/80">
           <a 
             href="#main" 
             onClick={(e) => scrollToSection(e, '#main')} 
-            className="flex items-center gap-3 group shrink-0"
+            className="flex items-center gap-2 group shrink-0"
           >
-            <span className="text-lg md:text-2xl font-display tracking-[0.2em] text-white group-hover:text-[rgb(var(--accent-wood))] transition-colors uppercase">МАССИВ</span>
+            <span className="text-lg md:text-xl font-bold tracking-widest text-white uppercase group-hover:text-[rgb(var(--accent-wood))] transition-colors duration-500">МАССИВ</span>
           </a>
 
           {/* Desktop Nav */}
-          <ul className="hidden lg:flex items-center gap-12">
+          <ul className="hidden lg:flex items-center gap-8 xl:gap-10">
             {navItems.map((item) => (
               <li key={item.name}>
                 <a 
                   href={item.href}
                   onClick={(e) => scrollToSection(e, item.href)}
-                  className="text-[9px] md:text-[10px] uppercase tracking-[0.4em] text-white/40 hover:text-white transition-all duration-300 relative group"
+                  className="text-[9px] md:text-[10px] uppercase tracking-widest text-gray-400 hover:text-white transition-colors duration-300 font-semibold relative group py-2"
                 >
                   {item.name}
-                  <span className="absolute -bottom-2 left-0 w-0 h-[1px] bg-[rgb(var(--accent-wood))] transition-all duration-500 group-hover:w-full" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-[rgb(var(--accent-wood))] transition-all duration-500 group-hover:w-1/2 rounded-full" />
                 </a>
               </li>
             ))}
           </ul>
 
-          <div className="flex items-center gap-4 md:gap-10">
+          <div className="flex items-center gap-4">
             <button 
               onClick={onConnectClick}
-              className="hidden md:flex text-[10px] uppercase tracking-[0.3em] px-10 py-3 border border-white/10 rounded-full hover:bg-white hover:text-black transition-all duration-700 font-medium active:scale-95"
+              className="hidden md:flex text-[10px] uppercase tracking-widest px-6 py-2.5 bg-white text-black rounded-full hover:bg-[rgb(var(--accent-wood))] hover:text-white transition-all duration-500 font-bold shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(196,164,132,0.4)] transform hover:scale-105"
             >
-              Консультация
+              Оставить заявку
             </button>
             
             {/* Mobile Toggle */}
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden w-10 h-10 flex items-center justify-center text-white/60 hover:text-white transition-colors bg-white/5 rounded-full"
+              className="lg:hidden text-white hover:text-[rgb(var(--accent-wood))] transition-colors p-2"
               aria-label="Открыть меню"
             >
-              {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </nav>
@@ -96,46 +94,46 @@ export default function Navbar({ onConnectClick }: NavbarProps) {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[90] bg-black/98 backdrop-blur-3xl lg:hidden flex flex-col items-center justify-center p-8"
+            initial={{ opacity: 0, y: -20, filter: 'blur(10px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, y: -20, filter: 'blur(10px)' }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-[90] bg-[#050505]/98 backdrop-blur-3xl lg:hidden flex flex-col pt-32 px-6 pb-8"
           >
-            <ul className="flex flex-col items-center gap-10 text-center w-full">
+            <ul className="flex flex-col gap-6 flex-grow">
               {navItems.map((item, index) => (
                 <motion.li 
                   key={item.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="w-full"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.5 }}
                 >
                   <a 
                     href={item.href}
                     onClick={(e) => scrollToSection(e, item.href)}
-                    className="text-4xl md:text-6xl font-display text-white hover:text-[rgb(var(--accent-wood))] transition-all block py-4"
+                    className="text-4xl font-black text-white hover:text-[rgb(var(--accent-wood))] transition-all block py-2 uppercase tracking-tighter"
                   >
                     {item.name}
                   </a>
                 </motion.li>
               ))}
-              <motion.li 
-                initial={{ opacity: 0, y: 20 }} 
-                animate={{ opacity: 1, y: 0 }} 
-                transition={{ delay: 0.5 }}
-                className="pt-10 w-full"
-              >
-                <button 
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    onConnectClick();
-                  }}
-                  className="premium-button w-full text-center py-6 text-lg"
-                >
-                  Начать диалог
-                </button>
-              </motion.li>
             </ul>
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              transition={{ delay: 0.4, duration: 0.5 }}
+              className="w-full mt-auto pt-8 border-t border-white/10"
+            >
+              <button 
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  onConnectClick();
+                }}
+                className="premium-button w-full py-5 text-sm"
+              >
+                Оставить заявку
+              </button>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

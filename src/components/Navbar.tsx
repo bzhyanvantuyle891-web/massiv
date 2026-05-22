@@ -37,103 +37,86 @@ export default function Navbar({ onConnectClick }: NavbarProps) {
 
   return (
     <>
-      <motion.header
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed left-1/2 -translate-x-1/2 z-[100] w-[calc(100%-2rem)] max-w-5xl transition-all duration-700 ${
-          isScrolled ? 'top-4' : 'top-6 md:top-8'
+      <header
+        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 border-b ${
+          isScrolled ? 'bg-black/95 backdrop-blur-md border-white/5 py-4' : 'bg-transparent border-transparent py-6'
         }`}
       >
-        <nav className="bg-[#0f0f0f]/80 backdrop-blur-2xl border border-white/10 rounded-full px-6 md:px-8 py-3 flex items-center justify-between shadow-2xl shadow-black/80">
+        <nav className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
           <a 
             href="#main" 
             onClick={(e) => scrollToSection(e, '#main')} 
             className="flex items-center gap-2 group shrink-0"
           >
-            <span className="text-lg md:text-xl font-bold tracking-widest text-white uppercase group-hover:text-[rgb(var(--accent-wood))] transition-colors duration-500">МАССИВ</span>
+            <span className="text-xl font-bold tracking-widest text-white uppercase">МАССИВ</span>
           </a>
 
-          {/* Desktop Nav */}
-          <ul className="hidden lg:flex items-center gap-8 xl:gap-10">
+          <ul className="hidden xl:flex items-center gap-8">
             {navItems.map((item) => (
               <li key={item.name}>
                 <a 
                   href={item.href}
                   onClick={(e) => scrollToSection(e, item.href)}
-                  className="text-[9px] md:text-[10px] uppercase tracking-widest text-gray-400 hover:text-white transition-colors duration-300 font-semibold relative group py-2"
+                  className="text-xs uppercase tracking-widest text-gray-400 hover:text-white transition-colors duration-300"
                 >
                   {item.name}
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-[rgb(var(--accent-wood))] transition-all duration-500 group-hover:w-1/2 rounded-full" />
                 </a>
               </li>
             ))}
           </ul>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-6">
             <button 
               onClick={onConnectClick}
-              className="hidden md:flex text-[10px] uppercase tracking-widest px-6 py-2.5 bg-white text-black rounded-full hover:bg-[rgb(var(--accent-wood))] hover:text-white transition-all duration-500 font-bold shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(196,164,132,0.4)] transform hover:scale-105"
+              className="hidden md:flex text-xs uppercase tracking-widest px-6 py-2.5 border border-white/20 hover:bg-white hover:text-black transition-colors duration-300 font-semibold rounded-md"
             >
               Оставить заявку
             </button>
             
-            {/* Mobile Toggle */}
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden text-white hover:text-[rgb(var(--accent-wood))] transition-colors p-2"
+              className="xl:hidden text-white/80 hover:text-white transition-colors p-2 -mr-2"
               aria-label="Открыть меню"
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </nav>
-      </motion.header>
+      </header>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20, filter: 'blur(10px)' }}
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            exit={{ opacity: 0, y: -20, filter: 'blur(10px)' }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-[90] bg-[#050505]/98 backdrop-blur-3xl lg:hidden flex flex-col pt-32 px-6 pb-8"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[90] bg-[#050505] xl:hidden flex flex-col pt-24 px-6"
           >
-            <ul className="flex flex-col gap-6 flex-grow">
-              {navItems.map((item, index) => (
-                <motion.li 
-                  key={item.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
-                >
+            <ul className="flex flex-col gap-6">
+              {navItems.map((item) => (
+                <li key={item.name}>
                   <a 
                     href={item.href}
                     onClick={(e) => scrollToSection(e, item.href)}
-                    className="text-4xl font-black text-white hover:text-[rgb(var(--accent-wood))] transition-all block py-2 uppercase tracking-tighter"
+                    className="text-2xl font-bold text-white uppercase tracking-wider block py-2 border-b border-white/5"
                   >
                     {item.name}
                   </a>
-                </motion.li>
+                </li>
               ))}
+              <li className="pt-6">
+                <button 
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    onConnectClick();
+                  }}
+                  className="premium-button w-full"
+                >
+                  Оставить заявку
+                </button>
+              </li>
             </ul>
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              transition={{ delay: 0.4, duration: 0.5 }}
-              className="w-full mt-auto pt-8 border-t border-white/10"
-            >
-              <button 
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  onConnectClick();
-                }}
-                className="premium-button w-full py-5 text-sm"
-              >
-                Оставить заявку
-              </button>
-            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

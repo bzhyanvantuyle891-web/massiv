@@ -33,8 +33,7 @@ export default function LeadModal({ isOpen, onClose }: ModalProps) {
       isValid = false;
     }
     
-    const phoneRegex = /^(\+7|7|8)?[\s\-]?\(?[489][0-9]{2}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
-    if (!phoneRegex.test(formData.phone)) {
+    if (formData.phone.length < 18) { // Length of full mask '+7 (XXX) XXX-XX-XX' is 18
       newErrors.phone = 'Некорректный номер';
       isValid = false;
     }

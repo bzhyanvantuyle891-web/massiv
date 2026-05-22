@@ -43,6 +43,7 @@ export default function Philosophy() {
               loop 
               muted 
               playsInline
+              poster="https://images.unsplash.com/photo-1541459530419-723321557002?q=80&w=800&auto=format&fit=crop"
               className="w-full h-full object-cover opacity-60 grayscale scale-105"
             >
               <source src="https://cdn.pixabay.com/video/2016/09/20/5312-183669145_tiny.mp4" type="video/mp4" />

@@ -2,7 +2,6 @@
 
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stage, Float, Environment, ContactShadows } from '@react-three/drei';
-import { motion } from 'framer-motion';
 import { Suspense, useState, useEffect, useRef } from 'react';
 
 function ChabanModel() {
@@ -42,26 +41,17 @@ export default function Showroom() {
   }, []);
 
   return (
-    <section ref={containerRef} id="showroom" className="h-[70vh] md:h-[80vh] w-full bg-[#050505] relative overflow-hidden flex flex-col items-center justify-center border-y border-white/5">
+    <section ref={containerRef} id="showroom" className="h-[70vh] w-full bg-[#050505] relative overflow-hidden flex flex-col items-center justify-center border-y border-white/5">
       <div className="absolute top-12 left-0 w-full z-10 flex flex-col items-center pointer-events-none space-y-2">
-        <motion.span 
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="text-xs uppercase tracking-widest text-[rgb(var(--accent-wood))] font-semibold"
-        >
+        <span className="text-xs uppercase tracking-widest text-[rgb(var(--accent-wood))] font-semibold">
           360° Обзор
-        </motion.span>
-        <motion.h2 
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="text-3xl md:text-5xl font-bold text-white tracking-tight"
-        >
+        </span>
+        <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight uppercase">
           Интерактивная модель
-        </motion.h2>
+        </h2>
       </div>
 
-      <div className="w-full h-full cursor-grab active:cursor-grabbing pt-20">
+      <div className="w-full h-full cursor-grab active:cursor-grabbing pt-16">
         {isInView ? (
           <Suspense fallback={<div className="w-full h-full flex items-center justify-center text-white/40 text-sm">Загрузка 3D...</div>}>
             <Canvas shadows camera={{ position: [0, 3, 6], fov: 35 }} frameloop="demand">
@@ -87,7 +77,7 @@ export default function Showroom() {
       </div>
 
       <div className="absolute bottom-8 left-0 w-full z-20 pointer-events-none flex justify-center">
-        <span className="text-xs text-gray-500 uppercase tracking-widest">Вращайте модель</span>
+        <span className="text-xs text-gray-500 uppercase tracking-widest font-semibold">Вращайте модель</span>
       </div>
     </section>
   );

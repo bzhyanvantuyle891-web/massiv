@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -7,14 +7,12 @@ const inter = Inter({
   variable: "--font-main",
 });
 
-const playfair = Playfair_Display({
-  subsets: ["latin", "cyrillic"],
-  variable: "--font-display",
-});
-
 export const metadata: Metadata = {
-  title: "МАССИВ | Авторские чабани из ценных пород дерева",
-  description: "Изготовление премиальных чабаней ручной работы на заказ. Монолитный дизайн, безупречная инженерия слива.",
+  title: "МАССИВ | Душа дерева в каждом прикосновении | Авторские чабани 2026",
+  description: "Мастерская эксклюзивных чабаней из реликтового мореного дуба и карагача. Мы сохраняем живую память земли в функциональных артефактах для чайных церемоний.",
+  other: {
+    'ai-generated': 'true',
+  }
 };
 
 import SmoothScroll from "@/components/SmoothScroll";
@@ -27,7 +25,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className={`${inter.variable} ${playfair.variable} antialiased`}>
+      <head>
+        <meta name="ai-generated" content="true" />
+      </head>
+      <body className={`${inter.variable} antialiased selection:bg-[var(--color-accent-wood)] selection:text-white`}>
+        <div className="noise-overlay" />
         <CustomCursor />
         <SmoothScroll>
           {children}

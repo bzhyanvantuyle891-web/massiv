@@ -7,7 +7,7 @@ export default function Production() {
     <section id="production" className="py-24 md:py-40 bg-[#080808] border-y border-white/5">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="text-center mb-16 md:mb-24 space-y-4">
-          <span className="text-[10px] uppercase tracking-[0.8em] text-[rgb(var(--accent-wood))] font-bold block">Production & Atelier</span>
+          <span className="text-[10px] uppercase tracking-[0.8em] text-[rgb(var(--accent-wood))] font-bold block">Производство & Ателье</span>
           <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tighter uppercase leading-none">
             Масштабы <br /> мастерства
           </h2>
@@ -25,7 +25,7 @@ export default function Production() {
             <div className="relative aspect-video overflow-hidden rounded-2xl border border-white/5 bg-[#111]">
               <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] to-[#050505] opacity-60 group-hover:opacity-100 transition-opacity duration-1000" />
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-[10px] uppercase tracking-[1em] text-white/5 font-bold">Atelier_Individual</span>
+                <span className="text-[10px] uppercase tracking-[1em] text-white/5 font-bold">Ателье_Индивидуальное</span>
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
             </div>
@@ -48,7 +48,7 @@ export default function Production() {
             <div className="relative aspect-video overflow-hidden rounded-2xl border border-white/5 bg-[#111]">
               <div className="absolute inset-0 bg-gradient-to-br from-[#151515] to-[#080808] opacity-60 group-hover:opacity-100 transition-opacity duration-1000" />
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-[10px] uppercase tracking-[1em] text-white/5 font-bold">Production_B2B</span>
+                <span className="text-[10px] uppercase tracking-[1em] text-white/5 font-bold">Производство_B2B</span>
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
             </div>

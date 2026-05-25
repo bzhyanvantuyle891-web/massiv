@@ -59,7 +59,7 @@ export default function Hero({ onOrderClick, activeModel, onModelChange }: HeroP
             transition={{ delay: 1, duration: 1 }}
             className="text-[9px] uppercase tracking-[0.8em] text-white"
           >
-            Aesthetics of Eternity
+            Эстетика вечности
           </motion.div>
         </motion.div>
       </div>
@@ -73,7 +73,7 @@ export default function Hero({ onOrderClick, activeModel, onModelChange }: HeroP
           {/* Main Actions */}
           <div className="flex flex-col sm:flex-row items-center gap-10 md:gap-16 pointer-events-auto">
             <div className="flex flex-col gap-2 items-center sm:items-start group">
-               <span className="text-[7px] text-gray-600 uppercase tracking-[0.4em] font-mono group-hover:text-[rgb(var(--accent-wood))] transition-colors">Action_Request</span>
+               <span className="text-[7px] text-gray-600 uppercase tracking-[0.4em] font-mono group-hover:text-[rgb(var(--accent-wood))] transition-colors">Запрос_Действия</span>
                <button 
                   onClick={onOrderClick} 
                   className="premium-button shadow-[0_0_50px_rgba(255,255,255,0.05)]"
@@ -83,7 +83,7 @@ export default function Hero({ onOrderClick, activeModel, onModelChange }: HeroP
             </div>
             
             <div className="flex flex-col gap-2 items-center sm:items-start relative">
-               <span className="text-[7px] text-gray-600 uppercase tracking-[0.4em] font-mono">Archive_Scan</span>
+               <span className="text-[7px] text-gray-600 uppercase tracking-[0.4em] font-mono">Архив_Коллекций</span>
                
                <AnimatePresence>
                  {isAccordionOpen && (
@@ -141,13 +141,13 @@ export default function Hero({ onOrderClick, activeModel, onModelChange }: HeroP
             transition={{ delay: 2.5 }}
             className="flex flex-col items-center gap-4 opacity-20 pointer-events-none hidden lg:flex pb-1"
           >
-            <span className="text-[7px] uppercase tracking-[0.6em] text-white font-mono">Exploring_Artifacts</span>
+            <span className="text-[7px] uppercase tracking-[0.6em] text-white font-mono">Изучение_Артефактов</span>
             <div className="w-[1px] h-10 bg-white/40" />
           </motion.div>
 
           {/* Right Area Spacer */}
           <div className="flex flex-col gap-2 items-center md:items-end min-w-[180px]">
-             <span className="text-[7px] text-gray-600 uppercase tracking-[0.4em] font-mono">Vision_Protocol</span>
+             <span className="text-[7px] text-gray-600 uppercase tracking-[0.4em] font-mono">Визуальный_Протокол</span>
              <div className="h-[48px] w-full" />
           </div>
         </div>

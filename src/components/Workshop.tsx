@@ -69,7 +69,7 @@ function TimelineTextStep({ step, index, total, progressValue }: { step: Timelin
       style={{ opacity }}
       className="space-y-2 border-l-2 border-white/5 pl-6"
     >
-      <span className="text-[9px] font-mono text-[rgb(var(--accent-wood))]">STAGE_{step.id}</span>
+      <span className="text-[9px] font-mono text-[rgb(var(--accent-wood))]">ЭТАП_{step.id}</span>
       <h4 className="text-base font-bold text-white uppercase">{step.title}</h4>
       <p className="text-xs text-gray-500 leading-relaxed font-light max-w-xs">
         {step.desc}
@@ -121,7 +121,7 @@ export default function Workshop() {
         <div className="max-w-7xl mx-auto">
           <div className="mb-16 md:mb-24 flex flex-col items-center text-center space-y-4">
             <span className="text-[10px] uppercase tracking-[0.8em] text-[rgb(var(--accent-wood))] font-bold block">
-              The Creation Process
+              Процесс создания
             </span>
             <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter uppercase leading-none">
               Мастерская <br /> МАССИВА
@@ -141,7 +141,7 @@ export default function Workshop() {
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <div className={`w-full h-full bg-gradient-to-br ${step.color} opacity-80 group-hover:opacity-100 transition-opacity duration-1000`} />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-[8px] uppercase tracking-[0.5em] text-white/5 font-bold">Massiv_Studio</span>
+                    <span className="text-[8px] uppercase tracking-[0.5em] text-white/5 font-bold">Студия_Массив</span>
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-60" />
                 </div>
@@ -161,7 +161,7 @@ export default function Workshop() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
             <div className="lg:col-span-5 space-y-12">
                <div className="space-y-4">
-                  <span className="text-[10px] uppercase tracking-[0.8em] text-[rgb(var(--accent-wood))] font-bold block">Engineering Protocol</span>
+                  <span className="text-[10px] uppercase tracking-[0.8em] text-[rgb(var(--accent-wood))] font-bold block">Инженерный протокол</span>
                   <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tighter uppercase leading-none">Технологический <br /> таймлапс</h2>
                   <p className="text-xs text-gray-500 font-mono uppercase tracking-widest opacity-60">Автоматическая визуализация процесса</p>
                </div>
@@ -183,7 +183,7 @@ export default function Workshop() {
                   <AnimatedLaser progress={smoothProgress} />
                 </svg>
                 <div className="absolute top-6 right-8 text-[9px] font-mono text-white/20 uppercase tracking-widest">
-                   Simulation_Phase: {currentPercent}%
+                   Фаза_Симуляции: {currentPercent}%
                 </div>
                 <div className="absolute inset-4 border border-white/5 pointer-events-none rounded-lg" />
               </div>

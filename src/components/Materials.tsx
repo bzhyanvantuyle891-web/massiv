@@ -60,7 +60,7 @@ export default function Materials() {
               <div className="relative aspect-[16/10] overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] to-[#050505] opacity-60 group-hover:opacity-100 transition-opacity duration-1000" />
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-[10px] uppercase tracking-[0.5em] text-white/5 font-bold">Material_Spec</span>
+                  <span className="text-[10px] uppercase tracking-[0.5em] text-white/5 font-bold">Спецификация_Материала</span>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-60" />
               </div>

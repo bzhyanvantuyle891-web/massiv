@@ -40,7 +40,7 @@ export default function Philosophy() {
           >
             <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] to-[#050505] opacity-50" />
             <div className="absolute inset-0 flex items-center justify-center">
-               <span className="text-[12px] uppercase tracking-[1em] text-white/5 font-bold -rotate-90">Born_For_Eternity</span>
+               <span className="text-[12px] uppercase tracking-[1em] text-white/5 font-bold -rotate-90">Создано_Для_Вечности</span>
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
           </motion.div>

@@ -28,7 +28,7 @@ export default function Philosophy() {
   ];
 
   return (
-    <section className="py-20 md:py-24 px-4 md:px-8 bg-[#080808] relative overflow-hidden border-b border-white/5">
+    <section id="philosophy" className="py-20 md:py-24 px-4 md:px-8 bg-[#080808] relative overflow-hidden border-b border-white/5">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
           <motion.div 
@@ -38,16 +38,10 @@ export default function Philosophy() {
             transition={{ duration: 1.5 }}
             className="relative aspect-square overflow-hidden border border-white/5 bg-[#111] rounded-2xl"
           >
-            <video 
-              autoPlay 
-              loop 
-              muted 
-              playsInline
-              poster="https://images.unsplash.com/photo-1541459530419-723321557002?q=80&w=800&auto=format&fit=crop"
-              className="w-full h-full object-cover opacity-60 grayscale scale-105"
-            >
-              <source src="https://cdn.pixabay.com/video/2016/09/20/5312-183669145_tiny.mp4" type="video/mp4" />
-            </video>
+            <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] to-[#050505] opacity-50" />
+            <div className="absolute inset-0 flex items-center justify-center">
+               <span className="text-[12px] uppercase tracking-[1em] text-white/5 font-bold -rotate-90">Born_For_Eternity</span>
+            </div>
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
           </motion.div>
 

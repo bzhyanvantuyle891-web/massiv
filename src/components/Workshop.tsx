@@ -1,33 +1,32 @@
 'use client';
 
-import { motion, useTransform, MotionValue, useSpring, AnimatePresence, animate, useMotionValue } from 'framer-motion';
-import Image from 'next/image';
-import { useEffect, useState, useRef } from 'react';
+import { motion, useTransform, MotionValue, useSpring, animate, useMotionValue } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 const steps = [
   {
     day: 'ДЕНЬ 1-5',
     title: 'Отбор и Генетика',
     description: 'Ищем слэбы с уникальным рисунком. Анализ влажности и плотности волокон.',
-    image: 'https://images.unsplash.com/photo-1541459530419-723321557002?q=80&w=1200'
+    color: 'from-[#1a1a1a] to-[#0a0a0a]'
   },
   {
     day: 'ДЕНЬ 6-30',
     title: 'Стабилизация',
     description: 'Снимаем внутреннее напряжение материала в климатических камерах.',
-    image: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=1200'
+    color: 'from-[#151515] to-[#050505]'
   },
   {
     day: 'ДЕНЬ 31-40',
     title: 'Геометрия',
     description: 'Создание системы скрытого слива. Угол 0.1° выверяется лазером.',
-    image: 'https://images.unsplash.com/photo-1622396481328-9b1b78cdd9fd?q=80&w=1200'
+    color: 'from-[#1a1410] to-[#0a0805]'
   },
   {
     day: 'ДЕНЬ 41-45',
     title: 'Финиш',
     description: 'Три слоя масла и воска. Текстура шелка и защита Dry-Touch.',
-    image: 'https://images.unsplash.com/photo-1596633605700-1efc9b49e277?q=80&w=1200'
+    color: 'from-[#1a1a1a] to-[#0a0a0a]'
   }
 ];
 
@@ -140,7 +139,10 @@ export default function Workshop() {
                 className="luxury-card w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] min-w-[260px] flex flex-col group border border-white/5 bg-white/[0.01]"
               >
                 <div className="relative aspect-[16/10] overflow-hidden">
-                  <Image src={step.image} alt={step.title} fill sizes="(max-width: 768px) 100vw, 25vw" className="object-cover grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-1000" />
+                  <div className={`w-full h-full bg-gradient-to-br ${step.color} opacity-80 group-hover:opacity-100 transition-opacity duration-1000`} />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-[8px] uppercase tracking-[0.5em] text-white/5 font-bold">Massiv_Studio</span>
+                  </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-60" />
                 </div>
                 <div className="p-5 space-y-3 flex-grow">

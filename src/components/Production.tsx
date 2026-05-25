@@ -24,13 +24,10 @@ export default function Production() {
             className="group space-y-8"
           >
             <div className="relative aspect-video overflow-hidden rounded-2xl border border-white/5 bg-[#111]">
-              <Image 
-                src="https://images.unsplash.com/photo-1622396481328-9b1b78cdd9fd?q=80&w=1600" 
-                alt="Ручная работа"
-                fill
-                sizes="(max-width: 1024px) 100vw, 45vw"
-                className="object-cover opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000"
-              />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] to-[#050505] opacity-60 group-hover:opacity-100 transition-opacity duration-1000" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-[10px] uppercase tracking-[1em] text-white/5 font-bold">Atelier_Individual</span>
+              </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
             </div>
             <div className="space-y-4">
@@ -50,13 +47,10 @@ export default function Production() {
             className="group space-y-8"
           >
             <div className="relative aspect-video overflow-hidden rounded-2xl border border-white/5 bg-[#111]">
-              <Image 
-                src="https://images.unsplash.com/photo-1581092921461-7d655083563b?q=80&w=1600" 
-                alt="Тиражное производство"
-                fill
-                sizes="(max-width: 1024px) 100vw, 45vw"
-                className="object-cover opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000"
-              />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#151515] to-[#080808] opacity-60 group-hover:opacity-100 transition-opacity duration-1000" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-[10px] uppercase tracking-[1em] text-white/5 font-bold">Production_B2B</span>
+              </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
             </div>
             <div className="space-y-4">

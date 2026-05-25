@@ -60,13 +60,10 @@ export default function Materials() {
               className="luxury-card h-full flex flex-col group border border-white/5 bg-white/[0.01]"
             >
               <div className="relative aspect-[16/10] overflow-hidden">
-                <Image 
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 25vw"
-                  className="object-cover transition-transform duration-1000 group-hover:scale-110 opacity-70 grayscale group-hover:grayscale-0"
-                />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] to-[#050505] opacity-60 group-hover:opacity-100 transition-opacity duration-1000" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-[10px] uppercase tracking-[0.5em] text-white/5 font-bold">Material_Spec</span>
+                </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-60" />
               </div>
               

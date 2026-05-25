@@ -24,24 +24,18 @@ const collections = [
 export default function Hero({ onOrderClick, activeModel, onModelChange }: HeroProps) {
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
-  const scrollToCollections = () => {
-    document.querySelector('#collections')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <section 
       aria-label="МАССИВ — Премиальное чайное искусство"
       className="relative h-screen w-full flex flex-col items-center overflow-hidden bg-[#050505]"
     >
-      {/* 3D Model as Background, positioned higher up */}
+      {/* 3D Model as Background */}
       <div className="absolute inset-x-0 bottom-0 top-[10%] md:top-[15%] z-0 pointer-events-auto">
         <Showroom activeModel={activeModel} />
-        {/* Blending gradients - adjusted for higher position */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505] pointer-events-none" />
         <div className="absolute inset-0 bg-black/5 pointer-events-none" />
       </div>
 
-      {/* Subtle Texture Layer for the entire section */}
       <div className="absolute inset-0 z-1 pointer-events-none opacity-20">
          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-soft-light" />
       </div>
@@ -61,11 +55,9 @@ export default function Hero({ onOrderClick, activeModel, onModelChange }: HeroP
 
       {/* Navigation Bar (HUD) */}
       <div className="absolute bottom-0 left-0 w-full z-40">
-        {/* Subtle separator line */}
         <div className="w-full h-px bg-white/5" />
         
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-8 flex flex-col md:flex-row justify-between items-center md:items-end gap-8">
-          {/* Left: Brand Actions */}
           <div className="flex flex-col sm:flex-row items-center gap-8 pointer-events-auto">
             <div className="flex flex-col gap-1 items-center sm:items-start">
                <span className="text-[7px] text-gray-600 uppercase tracking-[0.4em] font-mono">Action_Request</span>
@@ -80,7 +72,6 @@ export default function Hero({ onOrderClick, activeModel, onModelChange }: HeroP
             <div className="flex flex-col gap-1 items-center sm:items-start relative">
                <span className="text-[7px] text-gray-600 uppercase tracking-[0.4em] font-mono">Archive_Scan</span>
                
-               {/* Accordion Menu (Opens Upwards) */}
                <AnimatePresence>
                  {isAccordionOpen && (
                    <motion.div
@@ -130,7 +121,6 @@ export default function Hero({ onOrderClick, activeModel, onModelChange }: HeroP
             </div>
           </div>
 
-          {/* Center: Scroll Status */}
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -141,15 +131,13 @@ export default function Hero({ onOrderClick, activeModel, onModelChange }: HeroP
             <div className="w-[1px] h-8 bg-white/40" />
           </motion.div>
 
-          {/* Right: Functional Feature (Space for AR button in Showroom.tsx) */}
           <div className="flex flex-col gap-1 items-center md:items-end min-w-[160px]">
              <span className="text-[7px] text-gray-600 uppercase tracking-[0.4em] font-mono">Vision_Protocol</span>
-             <div className="h-[46px] w-full" /> {/* Spacer for AR button */}
+             <div className="h-[46px] w-full" />
           </div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

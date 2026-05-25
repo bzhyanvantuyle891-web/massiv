@@ -2,7 +2,7 @@
 
 import { motion, useTransform, MotionValue, useSpring, AnimatePresence, animate, useMotionValue } from 'framer-motion';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 const steps = [
   {
@@ -79,13 +79,29 @@ function TimelineTextStep({ step, index, total, progressValue }: { step: Timelin
   );
 }
 
+const AnimatedLaser = ({ progress }: { progress: MotionValue<number> }) => {
+  const y = useTransform(progress, [0, 1], [140, 260]);
+  const opacity = useTransform(progress, [0, 0.1, 0.9, 1], [0, 1, 1, 0]);
+
+  return (
+    <motion.line 
+      x1="80" 
+      x2="320" 
+      y1={y} 
+      y2={y} 
+      style={{ opacity }}
+      stroke="white" 
+      strokeWidth="0.5" 
+    />
+  );
+};
+
 export default function Workshop() {
   const progress = useMotionValue(0);
   const smoothProgress = useSpring(progress, { damping: 30, stiffness: 100 });
   const [currentPercent, setCurrentPercent] = useState(0);
 
   useEffect(() => {
-    // Autonomous loop animation
     const controls = animate(progress, 1, {
       duration: 12,
       repeat: Infinity,
@@ -99,12 +115,9 @@ export default function Workshop() {
   const rotation = useTransform(smoothProgress, [0, 1], [0, 360]);
   const rectPath = useTransform(smoothProgress, [0, 0.2], [0, 1]);
   const riverPath = useTransform(smoothProgress, [0.4, 0.8], [0, 1]);
-  const laserY = useTransform(smoothProgress, [0, 1], [140, 260]);
-  const laserOpacity = useTransform(smoothProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0]);
 
   return (
     <div id="workshop" className="bg-[#080808]">
-      {/* 1. Gallery Section */}
       <section className="py-20 md:py-32 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16 md:mb-24 flex flex-col items-center text-center space-y-4">
@@ -141,80 +154,38 @@ export default function Workshop() {
         </div>
       </section>
 
-      {/* 2. Autonomous Interactive Protocol Section */}
       <section className="py-24 md:py-40 bg-[#050505] border-t border-white/5 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-            
             <div className="lg:col-span-5 space-y-12">
                <div className="space-y-4">
                   <span className="text-[10px] uppercase tracking-[0.8em] text-[rgb(var(--accent-wood))] font-bold block">Engineering Protocol</span>
-                  <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tighter uppercase leading-none">
-                     Технологический <br /> таймлапс
-                  </h2>
+                  <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tighter uppercase leading-none">Технологический <br /> таймлапс</h2>
                   <p className="text-xs text-gray-500 font-mono uppercase tracking-widest opacity-60">Автоматическая визуализация процесса</p>
                </div>
-
                <div className="space-y-6">
                   {timelineSteps.map((step, i) => (
-                    <TimelineTextStep 
-                      key={i} 
-                      step={step} 
-                      index={i} 
-                      total={timelineSteps.length} 
-                      progressValue={smoothProgress} 
-                    />
+                    <TimelineTextStep key={i} step={step} index={i} total={timelineSteps.length} progressValue={smoothProgress} />
                   ))}
                </div>
             </div>
-
             <div className="lg:col-span-7">
-              {/* Interaction Frame - Now purely visual autonomous animation */}
-              <div 
-                className="relative aspect-video bg-white/[0.01] border border-white/10 rounded-2xl p-8 overflow-hidden group shadow-2xl transition-colors duration-500 hover:border-white/20"
-              >
-                {/* Technical Blueprint Overlay */}
+              <div className="relative aspect-video bg-white/[0.01] border border-white/10 rounded-2xl p-8 overflow-hidden group shadow-2xl transition-colors duration-500 hover:border-white/20">
                 <div className="absolute inset-0 opacity-10 pointer-events-none">
                   <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
                 </div>
-
                 <svg viewBox="0 0 400 400" className="w-full h-full text-[rgb(var(--accent-wood))] relative z-10">
-                  <motion.circle 
-                    cx="200" cy="200" r="180" 
-                    fill="none" stroke="currentColor" strokeWidth="0.2" strokeDasharray="2 10"
-                    style={{ rotate: rotation }}
-                  />
-                  <motion.rect 
-                    x="80" y="140" width="240" height="120" rx="2"
-                    fill="none" stroke="white" strokeWidth="0.5" opacity="0.2"
-                    style={{ pathLength: rectPath }}
-                  />
-                  <motion.path 
-                    d="M100 200 Q 200 230 300 200" 
-                    fill="none" stroke="currentColor" strokeWidth="1"
-                    style={{ pathLength: riverPath }}
-                  />
-                  <motion.line 
-                    x1="80" x2="320"
-                    style={{ 
-                      y1: laserY,
-                      y2: laserY,
-                      opacity: laserOpacity
-                    }}
-                    stroke="white" strokeWidth="0.5"
-                  />
+                  <motion.circle cx="200" cy="200" r="180" fill="none" stroke="currentColor" strokeWidth="0.2" strokeDasharray="2 10" style={{ rotate: rotation }} />
+                  <motion.rect x="80" y="140" width="240" height="120" rx="2" fill="none" stroke="white" strokeWidth="0.5" opacity="0.2" style={{ pathLength: rectPath }} />
+                  <motion.path d="M100 200 Q 200 230 300 200" fill="none" stroke="currentColor" strokeWidth="1" style={{ pathLength: riverPath }} />
+                  <AnimatedLaser progress={smoothProgress} />
                 </svg>
-
-                {/* Progress Overlay */}
                 <div className="absolute top-6 right-8 text-[9px] font-mono text-white/20 uppercase tracking-widest">
                    Simulation_Phase: {currentPercent}%
                 </div>
-                
-                {/* Visual frame borders */}
                 <div className="absolute inset-4 border border-white/5 pointer-events-none rounded-lg" />
               </div>
             </div>
-
           </div>
         </div>
       </section>

@@ -6,16 +6,29 @@ import { Suspense, useState, useEffect, useRef, memo } from 'react';
 import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
 import * as THREE from 'three';
 
-// Define a type for model-viewer since it's a custom element
+// Extend JSX namespace safely
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
     interface IntrinsicElements {
-      'model-viewer': any;
+      'model-viewer': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement> & {
+        src: string;
+        ar?: boolean;
+        'ar-modes'?: string;
+        'camera-controls'?: boolean;
+        alt?: string;
+      }, HTMLElement>;
     }
   }
 }
 
-function Exporter({ groupRef, setGlbUrl, activeModel }: { groupRef: React.RefObject<THREE.Group | null>, setGlbUrl: (url: string) => void, activeModel: string }) {
+interface ExporterProps {
+  groupRef: React.RefObject<THREE.Group | null>;
+  setGlbUrl: (url: string) => void;
+  activeModel: string;
+}
+
+function Exporter({ groupRef, setGlbUrl, activeModel }: ExporterProps) {
   useEffect(() => {
     if (!groupRef.current) return;
     
@@ -47,114 +60,95 @@ function Exporter({ groupRef, setGlbUrl, activeModel }: { groupRef: React.RefObj
 }
 
 // 1. MONOLITH: Classic heavy Karagach
-const MonolithModel = memo(() => {
-  return (
-    <group>
-      <RoundedBox args={[7, 0.6, 4]} radius={0.08} smoothness={8} castShadow receiveShadow>
-        <meshPhysicalMaterial 
-          color="#3d231a" 
-          roughness={0.6} 
-          metalness={0.05} 
-          clearcoat={0.3} 
-          envMapIntensity={1.5}
-        />
-      </RoundedBox>
-      <mesh position={[0, 0.09, 0]}>
-        <boxGeometry args={[6.4, 0.38, 3.4]} />
-        <meshPhysicalMaterial color="#080808" roughness={0.9} />
-      </mesh>
-      <group position={[0, 0.28, 0]}>
-        {[...Array(10)].map((_, i) => (
-          <mesh key={i} position={[(i - 4.5) * 0.62, 0.01, 0]} castShadow>
-            <boxGeometry args={[0.25, 0.15, 3.4]} />
-            <meshPhysicalMaterial color="#4d2c1e" roughness={0.4} clearcoat={0.2} />
-          </mesh>
-        ))}
-      </group>
-      <mesh position={[3.55, -0.1, 0]} rotation={[0, Math.PI / 2, 0]}>
-         <cylinderGeometry args={[0.06, 0.06, 0.4, 16]} />
-         <meshStandardMaterial color="#d4af37" metalness={0.9} />
-      </mesh>
-    </group>
-  );
-});
-MonolithModel.displayName = 'MonolithModel';
-
-// 2. NEXUS: "Stone & Stream" - Basalt with American Walnut
-const NexusModel = memo(() => {
-  return (
-    <group>
-      <mesh receiveShadow castShadow>
-        <boxGeometry args={[6.8, 0.7, 4.2]} />
-        <meshPhysicalMaterial color="#1a1a1a" roughness={0.8} metalness={0.1} />
-      </mesh>
-      <group position={[0, 0.45, 0]}>
-        {[[-2.5, 1.5], [2.5, 1.5], [-2.5, -1.5], [2.5, -1.5]].map(([x, z], i) => (
-           <mesh key={i} position={[x, -0.15, z]}>
-              <cylinderGeometry args={[0.03, 0.03, 0.3, 16]} />
-              <meshStandardMaterial color="#d4af37" metalness={1} />
-           </mesh>
-        ))}
-        <RoundedBox args={[6.2, 0.1, 3.6]} radius={0.05} castShadow smoothness={4}>
-           <meshPhysicalMaterial color="#5c4033" roughness={0.4} clearcoat={0.5} />
-        </RoundedBox>
-        <group position={[0, 0.052, 0]}>
-          {[...Array(4)].map((_, r) => [...Array(6)].map((_, c) => (
-              <mesh key={`${r}-${c}`} position={[(c - 2.5) * 0.8, 0, (r - 1.5) * 0.8]} rotation={[-Math.PI / 2, 0, 0]}>
-                <circleGeometry args={[0.05, 16]} />
-                <meshBasicMaterial color="#000" />
-              </mesh>
-          )))}
-        </group>
-      </group>
-    </group>
-  );
-});
-NexusModel.displayName = 'NexusModel';
-
-// 3. ECLIPSE: Redesigned as a sculptural charred monolith with a glowing gold "fissure"
-const EclipseModel = memo(() => {
-  return (
-    <group>
-      <mesh castShadow receiveShadow>
-        <boxGeometry args={[7.5, 0.8, 4.5]} />
-        <meshPhysicalMaterial 
-          color="#050505" 
-          roughness={0.15} 
-          clearcoat={1} 
-          clearcoatRoughness={0.1}
-          envMapIntensity={2}
-        />
-      </mesh>
-      <group position={[0, 0.36, 0]}>
-        <mesh receiveShadow>
-          <boxGeometry args={[5, 0.1, 1.2]} rotation={[0, 0.2, 0]} />
-          <meshPhysicalMaterial color="#000" roughness={1} />
-        </mesh>
-        <mesh position={[0, -0.02, 0]} rotation={[0, 0.2, 0]}>
-          <boxGeometry args={[4.8, 0.05, 0.8]} />
-          <meshPhysicalMaterial color="#d4af37" metalness={1} roughness={0.1} emissive="#d4af37" emissiveIntensity={0.5} />
-        </mesh>
-        {[...Array(6)].map((_, i) => (
-          <mesh key={i} position={[(i - 2.5) * 0.7, 0.06, i * 0.1]} rotation={[0, 0.2, 0]} castShadow>
-            <boxGeometry args={[0.04, 0.04, 1.4]} />
-            <meshStandardMaterial color="#ffffff" metalness={1} />
-          </mesh>
-        ))}
-      </group>
-      <mesh position={[2.5, 0.41, 1.5]}>
-        <circleGeometry args={[0.1, 32]} rotation={[-Math.PI / 2, 0, 0]} />
-        <meshStandardMaterial color="#3b82f6" emissive="#3b82f6" emissiveIntensity={10} />
-      </mesh>
-      {[[-3.4, 1.9], [3.4, 1.9], [-3.4, -1.9], [3.4, -1.9]].map(([x, z], i) => (
-        <mesh key={i} position={[x, -0.45, z]}>
-           <cylinderGeometry args={[0.1, 0.12, 0.2, 16]} />
-           <meshStandardMaterial color="#d4af37" metalness={1} />
+const MonolithModel = memo(() => (
+  <group>
+    <RoundedBox args={[7, 0.6, 4]} radius={0.08} smoothness={8} castShadow receiveShadow>
+      <meshPhysicalMaterial color="#3d231a" roughness={0.6} metalness={0.05} clearcoat={0.3} envMapIntensity={1.5} />
+    </RoundedBox>
+    <mesh position={[0, 0.09, 0]}>
+      <boxGeometry args={[6.4, 0.38, 3.4]} />
+      <meshPhysicalMaterial color="#080808" roughness={0.9} />
+    </mesh>
+    <group position={[0, 0.28, 0]}>
+      {[...Array(10)].map((_, i) => (
+        <mesh key={i} position={[(i - 4.5) * 0.62, 0.01, 0]} castShadow>
+          <boxGeometry args={[0.25, 0.15, 3.4]} />
+          <meshPhysicalMaterial color="#4d2c1e" roughness={0.4} clearcoat={0.2} />
         </mesh>
       ))}
     </group>
-  );
-});
+    <mesh position={[3.55, -0.1, 0]} rotation={[0, Math.PI / 2, 0]}>
+       <cylinderGeometry args={[0.06, 0.06, 0.4, 16]} />
+       <meshStandardMaterial color="#d4af37" metalness={0.9} />
+    </mesh>
+  </group>
+));
+MonolithModel.displayName = 'MonolithModel';
+
+// 2. NEXUS: Basalt with floating organic wood
+const NexusModel = memo(() => (
+  <group>
+    <mesh receiveShadow castShadow>
+      <boxGeometry args={[6.8, 0.7, 4.2]} />
+      <meshPhysicalMaterial color="#1a1a1a" roughness={0.8} metalness={0.1} />
+    </mesh>
+    <group position={[0, 0.45, 0]}>
+      {[[-2.5, 1.5], [2.5, 1.5], [-2.5, -1.5], [2.5, -1.5]].map(([x, z], i) => (
+         <mesh key={i} position={[x, -0.15, z]}>
+            <cylinderGeometry args={[0.03, 0.03, 0.3, 16]} />
+            <meshStandardMaterial color="#d4af37" metalness={1} />
+         </mesh>
+      ))}
+      <RoundedBox args={[6.2, 0.1, 3.6]} radius={0.05} castShadow smoothness={4}>
+         <meshPhysicalMaterial color="#5c4033" roughness={0.4} clearcoat={0.5} />
+      </RoundedBox>
+      <group position={[0, 0.052, 0]}>
+        {[...Array(4)].map((_, r) => [...Array(6)].map((_, c) => (
+            <mesh key={`${r}-${c}`} position={[(c - 2.5) * 0.8, 0, (r - 1.5) * 0.8]} rotation={[-Math.PI / 2, 0, 0]}>
+              <circleGeometry args={[0.05, 16]} />
+              <meshBasicMaterial color="#000" />
+            </mesh>
+        )))}
+      </group>
+    </group>
+  </group>
+));
+NexusModel.displayName = 'NexusModel';
+
+// 3. ECLIPSE: Redesigned sharp, high-tech Bog Oak monolith
+const EclipseModel = memo(() => (
+  <group>
+    <mesh castShadow receiveShadow>
+      <boxGeometry args={[7.5, 0.8, 4.5]} />
+      <meshPhysicalMaterial color="#050505" roughness={0.15} clearcoat={1} clearcoatRoughness={0.05} reflectivity={1} envMapIntensity={2} />
+    </mesh>
+    <group position={[0, 0.36, 0]}>
+      <mesh receiveShadow rotation={[0, 0.2, 0]}>
+        <boxGeometry args={[5, 0.1, 1.2]} />
+        <meshPhysicalMaterial color="#000" roughness={1} />
+      </mesh>
+      <mesh position={[0, -0.02, 0]} rotation={[0, 0.2, 0]}>
+        <boxGeometry args={[4.8, 0.05, 0.8]} />
+        <meshPhysicalMaterial color="#d4af37" metalness={1} roughness={0.1} emissive="#d4af37" emissiveIntensity={0.5} />
+      </mesh>
+      {[...Array(6)].map((_, i) => (
+        <mesh key={i} position={[(i - 2.5) * 0.7, 0.06, i * 0.1]} rotation={[0, 0.2, 0]} castShadow>
+          <boxGeometry args={[0.04, 0.04, 1.4]} /><meshStandardMaterial color="#ffffff" metalness={1} />
+        </mesh>
+      ))}
+    </group>
+    <mesh position={[2.5, 0.41, 1.5]} rotation={[-Math.PI / 2, 0, 0]}>
+      <circleGeometry args={[0.1, 32]} />
+      <meshStandardMaterial color="#3b82f6" emissive="#3b82f6" emissiveIntensity={10} />
+    </mesh>
+    {[[-3.4, 1.9], [3.4, 1.9], [-3.4, -1.9], [3.4, -1.9]].map(([x, z], i) => (
+      <mesh key={i} position={[x, -0.45, z]}>
+        <cylinderGeometry args={[0.08, 0.12, 0.2, 16]} />
+        <meshStandardMaterial color="#71717a" metalness={1} />
+      </mesh>
+    ))}
+  </group>
+));
 EclipseModel.displayName = 'EclipseModel';
 
 function SceneLighting() {
@@ -208,8 +202,8 @@ export default function Showroom({ activeModel = 'monolith' }: { activeModel?: '
 
   const activateAR = () => {
     if (!glbUrl) return;
-    const mv = document.getElementById('ar-viewer') as any;
-    if (mv?.activateAR) {
+    const mv = document.getElementById('ar-viewer') as HTMLElement & { activateAR: () => void };
+    if (mv && typeof mv.activateAR === 'function') {
       mv.activateAR();
     } else {
       const link = document.createElement('a');
@@ -222,6 +216,7 @@ export default function Showroom({ activeModel = 'monolith' }: { activeModel?: '
   return (
     <section ref={containerRef} id="showroom" className="h-full w-full bg-transparent relative overflow-hidden flex flex-col items-center justify-center">
       <div style={{ position: 'absolute', width: 1, height: 1, opacity: 0, pointerEvents: 'none' }}>
+        {/* @ts-expect-error - model-viewer */}
         <model-viewer id="ar-viewer" src={glbUrl || ''} ar ar-modes="webxr scene-viewer quick-look" />
       </div>
 

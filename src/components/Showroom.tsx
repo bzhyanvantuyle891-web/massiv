@@ -68,13 +68,15 @@ function Exporter({ groupRef, setGlbUrl, activeModel }: ExporterProps) {
 
 // Textured Material Component with safe loading and detailed parameters
 const DetailedWoodMaterial = ({ url, color, roughness, repeat = [2, 2], clearcoat = 0.5 }: { url: string, color: string, roughness: number, repeat?: [number, number], clearcoat?: number }) => {
-  const texture = useTexture(url);
+  const baseTexture = useTexture(url);
+  const texture = baseTexture.clone();
   
   useLayoutEffect(() => {
     if (texture) {
       texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
       texture.repeat.set(repeat[0], repeat[1]);
       texture.anisotropy = 16;
+      texture.needsUpdate = true;
     }
   }, [texture, repeat]);
 

@@ -163,16 +163,13 @@ function SceneLighting() {
 // Статические пути к AR моделям, которые будут загружены в папку public/models/
 const AR_ASSETS = {
   monolith: {
-    glb: '/models/monolith.glb',
-    usdz: '/models/monolith.usdz'
+    glb: '/models/monolith.glb'
   },
   nature: {
-    glb: '/models/nexus.glb',
-    usdz: '/models/nexus.usdz'
+    glb: '/models/nexus.glb'
   },
   dark: {
-    glb: '/models/eclipse.glb',
-    usdz: '/models/eclipse.usdz'
+    glb: '/models/eclipse.glb'
   }
 };
 
@@ -212,7 +209,6 @@ export default function Showroom({ activeModel = 'monolith' }: { activeModel?: '
         <model-viewer 
           id="ar-viewer" 
           src={activeAssets.glb} 
-          ios-src={activeAssets.usdz}
           ar 
           ar-modes="webxr scene-viewer quick-look" 
         />

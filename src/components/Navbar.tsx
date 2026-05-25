@@ -20,7 +20,6 @@ export default function Navbar({ onConnectClick }: NavbarProps) {
 
   const navItems = [
     { name: 'Философия', href: '#philosophy' },
-    { name: 'Коллекции', href: '#collections' },
     { name: 'Создание', href: '#workshop' },
     { name: 'Уход', href: '#service' },
     { name: 'Ателье', href: '#production' },

@@ -23,7 +23,6 @@ export default function Footer({ onLegalClick }: FooterProps) {
             <ul className="space-y-2 text-[13px] text-gray-400">
               <li><a href="#philosophy" className="hover:text-white transition-colors">Философия</a></li>
               <li><a href="#workshop" className="hover:text-white transition-colors">Мастерская</a></li>
-              <li><a href="#collections" className="hover:text-white transition-colors">Коллекции</a></li>
               <li><a href="#ar" className="hover:text-white transition-colors">AR Студия</a></li>
             </ul>
           </div>

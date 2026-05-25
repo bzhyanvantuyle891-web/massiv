@@ -1,8 +1,8 @@
 'use client';
 
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Environment, ContactShadows, RoundedBox, useTexture } from '@react-three/drei';
-import { Suspense, useState, useEffect, useRef, memo, useLayoutEffect } from 'react';
+import { OrbitControls, Environment, ContactShadows, RoundedBox } from '@react-three/drei';
+import { Suspense, useState, useEffect, useRef, memo } from 'react';
 import * as THREE from 'three';
 
 // Define a type for model-viewer custom element

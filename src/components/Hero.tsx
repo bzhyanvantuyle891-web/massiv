@@ -31,7 +31,7 @@ export default function Hero({ onOrderClick, activeModel, onModelChange }: HeroP
     >
       {/* 3D Model Background with improved vertical spacing */}
       <div className="absolute inset-0 z-0 pointer-events-auto overflow-hidden">
-        <div className="absolute inset-x-0 bottom-0 -top-[15%] md:-top-[20%] h-full">
+        <div className="absolute inset-x-0 w-full h-[120vh] -top-[10vh] md:-top-[20vh]">
            <Showroom activeModel={activeModel} />
         </div>
         {/* Blending gradients */}

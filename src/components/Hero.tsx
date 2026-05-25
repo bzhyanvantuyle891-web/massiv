@@ -1,12 +1,29 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import dynamic from 'next/dynamic';
+import { useState } from 'react';
+
+const Showroom = dynamic(() => import('./Showroom'), { 
+  ssr: false,
+  loading: () => <div className="h-full w-full bg-transparent flex items-center justify-center text-white/5 text-[10px] uppercase tracking-widest">Инициализация 3D...</div> 
+});
 
 interface HeroProps {
   onOrderClick: () => void;
+  activeModel: 'monolith' | 'nature' | 'dark';
+  onModelChange: (model: 'monolith' | 'nature' | 'dark') => void;
 }
 
-export default function Hero({ onOrderClick }: HeroProps) {
+const collections = [
+  { id: 'monolith', name: 'Монолит', desc: 'Карагач + Матовая Латунь' },
+  { id: 'nature', name: 'Дыхание', desc: 'Дуб + Закаленное стекло' },
+  { id: 'dark', name: 'Материя', desc: 'Мореный дуб + Титан' },
+] as const;
+
+export default function Hero({ onOrderClick, activeModel, onModelChange }: HeroProps) {
+  const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+
   const scrollToCollections = () => {
     document.querySelector('#collections')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -14,73 +31,132 @@ export default function Hero({ onOrderClick }: HeroProps) {
   return (
     <section 
       aria-label="МАССИВ — Премиальное чайное искусство"
-      className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[#050505]"
+      className="relative h-screen w-full flex flex-col items-center overflow-hidden bg-[#050505]"
     >
-      <div className="absolute inset-0 z-0 opacity-40">
-         <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline
-            poster="https://images.unsplash.com/photo-1590059132718-5026939989d3?q=80&w=1200&auto=format&fit=crop"
-            className="w-full h-full object-cover grayscale brightness-50"
-         >
-            <source src="https://cdn.pixabay.com/video/2021/04/13/70912-536962386_tiny.mp4" type="video/mp4" />
-         </video>
+      {/* 3D Model as Background, positioned higher up */}
+      <div className="absolute inset-x-0 bottom-0 top-[10%] md:top-[15%] z-0 pointer-events-auto">
+        <Showroom activeModel={activeModel} />
+        {/* Blending gradients - adjusted for higher position */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505] pointer-events-none" />
+        <div className="absolute inset-0 bg-black/5 pointer-events-none" />
       </div>
 
-      <div className="absolute inset-0 z-10 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black" />
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-soft-light" />
+      {/* Subtle Texture Layer for the entire section */}
+      <div className="absolute inset-0 z-1 pointer-events-none opacity-20">
+         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-soft-light" />
       </div>
 
-      <div className="relative z-20 text-center px-4 max-w-4xl mx-auto pt-20">
+      <div className="relative z-20 text-center px-4 w-full max-w-4xl mx-auto flex flex-col items-center pt-24 md:pt-32 pointer-events-none">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: 'easeOut' }}
-          className="space-y-6"
+          transition={{ duration: 1.5, ease: 'easeOut' }}
+          className="space-y-4 max-w-4xl"
         >
-          <div className="space-y-4">
-            <span className="block text-xs uppercase tracking-widest text-[rgb(var(--accent-wood))] font-semibold">
-              Эстетика вечности
-            </span>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight leading-none uppercase">
-              МАССИВ
-            </h1>
-          </div>
-          
-          <div className="max-w-2xl mx-auto space-y-8">
-            <p className="text-base md:text-lg text-gray-300 font-medium leading-relaxed">
-              Инвестиционные артефакты для чайной культуры. <br />
-              Сплав реликтовой природы и абсолютной тишины.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <button 
-                onClick={onOrderClick} 
-                className="premium-button w-full sm:w-auto"
-              >
-                Начать проектирование
-              </button>
-              <button 
-                onClick={scrollToCollections}
-                className="text-xs uppercase tracking-widest text-white/60 hover:text-white transition-colors duration-300 pb-1 border-b border-white/20 hover:border-white"
-              >
-                Коллекции
-              </button>
-            </div>
-          </div>
+          <h1 className="text-5xl md:text-7xl lg:text-9xl font-bold text-white tracking-tighter leading-none uppercase">
+            МАССИВ
+          </h1>
         </motion.div>
       </div>
 
+      {/* Navigation Bar (HUD) */}
+      <div className="absolute bottom-0 left-0 w-full z-40">
+        {/* Subtle separator line */}
+        <div className="w-full h-px bg-white/5" />
+        
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-8 flex flex-col md:flex-row justify-between items-center md:items-end gap-8">
+          {/* Left: Brand Actions */}
+          <div className="flex flex-col sm:flex-row items-center gap-8 pointer-events-auto">
+            <div className="flex flex-col gap-1 items-center sm:items-start">
+               <span className="text-[7px] text-gray-600 uppercase tracking-[0.4em] font-mono">Action_Request</span>
+               <button 
+                  onClick={onOrderClick} 
+                  className="premium-button text-[9px] px-10 py-3.5 shadow-[0_0_40px_rgba(255,255,255,0.05)]"
+               >
+                  Начать проектирование
+               </button>
+            </div>
+            
+            <div className="flex flex-col gap-1 items-center sm:items-start relative">
+               <span className="text-[7px] text-gray-600 uppercase tracking-[0.4em] font-mono">Archive_Scan</span>
+               
+               {/* Accordion Menu (Opens Upwards) */}
+               <AnimatePresence>
+                 {isAccordionOpen && (
+                   <motion.div
+                     initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                     animate={{ opacity: 1, y: 0, scale: 1 }}
+                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                     className="absolute bottom-full left-1/2 -translate-x-1/2 sm:left-0 sm:translate-x-0 mb-4 w-64 bg-[#0a0a0a]/95 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden p-2 shadow-2xl z-50"
+                   >
+                     {collections.map((item) => (
+                       <button
+                         key={item.id}
+                         onClick={() => {
+                           onModelChange(item.id);
+                           setIsAccordionOpen(false);
+                         }}
+                         className={`w-full text-left p-3 rounded-lg transition-all flex flex-col gap-0.5 group ${
+                           activeModel === item.id ? 'bg-white/10' : 'hover:bg-white/5'
+                         }`}
+                       >
+                         <div className="flex justify-between items-center">
+                            <span className={`text-[10px] font-bold uppercase tracking-widest ${activeModel === item.id ? 'text-[rgb(var(--accent-wood))]' : 'text-white'}`}>
+                              {item.name}
+                            </span>
+                            {activeModel === item.id && <div className="w-1 h-1 rounded-full bg-[rgb(var(--accent-wood))] shadow-[0_0_8px_rgb(var(--accent-wood))]" />}
+                         </div>
+                         <span className="text-[8px] text-gray-500 uppercase tracking-wider">{item.desc}</span>
+                       </button>
+                     ))}
+                   </motion.div>
+                 )}
+               </AnimatePresence>
+
+               <button 
+                  onClick={() => setIsAccordionOpen(!isAccordionOpen)}
+                  className={`text-[9px] uppercase tracking-[0.2em] transition-all duration-300 pb-1.5 border-b flex items-center gap-2 ${
+                    isAccordionOpen ? 'text-white border-white' : 'text-white/50 border-white/10 hover:border-white'
+                  }`}
+               >
+                  Коллекции
+                  <motion.svg 
+                    animate={{ rotate: isAccordionOpen ? 180 : 0 }}
+                    width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"
+                  >
+                    <path d="M18 15l-6-6-6 6"/>
+                  </motion.svg>
+               </button>
+            </div>
+          </div>
+
+          {/* Center: Scroll Status */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2 }}
+            className="flex flex-col items-center gap-3 opacity-20 pointer-events-none hidden lg:flex"
+          >
+            <span className="text-[7px] uppercase tracking-[0.5em] text-white">Scroll_Explorer</span>
+            <div className="w-[1px] h-8 bg-white/40" />
+          </motion.div>
+
+          {/* Right: Functional Feature (Space for AR button in Showroom.tsx) */}
+          <div className="flex flex-col gap-1 items-center md:items-end min-w-[160px]">
+             <span className="text-[7px] text-gray-600 uppercase tracking-[0.4em] font-mono">Vision_Protocol</span>
+             <div className="h-[46px] w-full" /> {/* Spacer for AR button */}
+          </div>
+        </div>
+      </div>
+
+      {/* Scroll Indicator */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-4 opacity-50"
+        transition={{ delay: 2 }}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-4 opacity-30"
       >
-        <div className="w-[1px] h-16 bg-white/20" />
+        <div className="w-[1px] h-12 bg-white/20" />
       </motion.div>
     </section>
   );

@@ -28,7 +28,7 @@ export default function Philosophy() {
   ];
 
   return (
-    <section className="py-24 md:py-32 px-4 md:px-8 bg-[#080808] relative overflow-hidden border-b border-white/5">
+    <section className="py-20 md:py-24 px-4 md:px-8 bg-[#080808] relative overflow-hidden border-b border-white/5">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
           <motion.div 
@@ -51,18 +51,18 @@ export default function Philosophy() {
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
           </motion.div>
 
-          <div className="space-y-12">
-            <div className="space-y-6">
-              <span className="text-xs uppercase tracking-widest text-[rgb(var(--accent-wood))] font-semibold block">Душа МАССИВА</span>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-none text-white tracking-tight">
+          <div className="space-y-10">
+            <div className="space-y-4">
+              <span className="text-[10px] uppercase tracking-widest text-[rgb(var(--accent-wood))] font-semibold block">Душа МАССИВА</span>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-white tracking-tight">
                 Где форма <br /> обретает смысл
               </h2>
-              <p className="text-base text-gray-400 font-normal leading-relaxed max-w-lg">
+              <p className="text-sm text-gray-400 font-normal leading-relaxed max-w-lg">
                 Премиальная чабань — это не мебель. Это сцена для медитации. Мы проектируем наши изделия как сложные инженерные системы, скрытые в оболочке первозданного дерева.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10">
               {features.map((feature, index) => (
                 <motion.div 
                   key={index}
@@ -70,11 +70,11 @@ export default function Philosophy() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="space-y-4 group"
+                  className="space-y-3 group"
                 >
                   <div className="text-[rgb(var(--accent-wood))] transform group-hover:scale-110 transition-transform duration-500">{feature.icon}</div>
-                  <h4 className="text-lg font-bold text-white group-hover:text-[rgb(var(--accent-wood))] transition-colors">{feature.title}</h4>
-                  <p className="text-sm text-gray-500 font-normal leading-relaxed">{feature.description}</p>
+                  <h4 className="text-base font-bold text-white group-hover:text-[rgb(var(--accent-wood))] transition-colors">{feature.title}</h4>
+                  <p className="text-[13px] text-gray-500 font-normal leading-relaxed">{feature.description}</p>
                 </motion.div>
               ))}
             </div>

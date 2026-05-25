@@ -20,10 +20,10 @@ export default function Navbar({ onConnectClick }: NavbarProps) {
 
   const navItems = [
     { name: 'Философия', href: '#philosophy' },
-    { name: 'Мастерская', href: '#workshop' },
-    { name: '360° Обзор', href: '#showroom' },
-    { name: 'AR-Студия', href: '#ar' },
     { name: 'Коллекции', href: '#collections' },
+    { name: 'Создание', href: '#workshop' },
+    { name: 'Уход', href: '#service' },
+    { name: 'Ателье', href: '#production' },
   ];
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -39,7 +39,7 @@ export default function Navbar({ onConnectClick }: NavbarProps) {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 border-b ${
-          isScrolled ? 'bg-black/95 backdrop-blur-md border-white/5 py-4' : 'bg-transparent border-transparent py-6'
+          isScrolled ? 'bg-black/95 backdrop-blur-md border-white/5 py-3' : 'bg-transparent border-transparent py-4'
         }`}
       >
         <nav className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
@@ -48,16 +48,16 @@ export default function Navbar({ onConnectClick }: NavbarProps) {
             onClick={(e) => scrollToSection(e, '#main')} 
             className="flex items-center gap-2 group shrink-0"
           >
-            <span className="text-xl font-bold tracking-widest text-white uppercase">МАССИВ</span>
+            <span className="text-lg font-bold tracking-widest text-white uppercase">МАССИВ</span>
           </a>
 
-          <ul className="hidden xl:flex items-center gap-8">
+          <ul className="hidden xl:flex items-center gap-6">
             {navItems.map((item) => (
               <li key={item.name}>
                 <a 
                   href={item.href}
                   onClick={(e) => scrollToSection(e, item.href)}
-                  className="text-xs uppercase tracking-widest text-gray-400 hover:text-white transition-colors duration-300"
+                  className="text-[10px] uppercase tracking-widest text-gray-400 hover:text-white transition-colors duration-300"
                 >
                   {item.name}
                 </a>
@@ -65,10 +65,10 @@ export default function Navbar({ onConnectClick }: NavbarProps) {
             ))}
           </ul>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4">
             <button 
               onClick={onConnectClick}
-              className="hidden md:flex text-xs uppercase tracking-widest px-6 py-2.5 border border-white/20 hover:bg-white hover:text-black transition-colors duration-300 font-semibold rounded-md"
+              className="hidden md:flex text-[10px] uppercase tracking-widest px-5 py-2 border border-white/10 hover:bg-white hover:text-black transition-colors duration-300 font-semibold rounded-md"
             >
               Оставить заявку
             </button>

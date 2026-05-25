@@ -33,23 +33,23 @@ const materials = [
 
 export default function Materials() {
   return (
-    <section className="py-24 px-4 md:px-8 bg-[rgb(var(--background))]">
+    <section className="py-20 px-4 md:px-8 bg-[rgb(var(--background))]">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-8">
           <div className="max-w-2xl">
             <span className="text-[10px] uppercase tracking-[0.4em] text-[rgb(var(--accent-wood))] mb-4 block">
               Материалы
             </span>
-            <h2 className="text-4xl md:text-6xl font-display leading-tight">
+            <h2 className="text-3xl md:text-5xl font-display leading-tight">
               Природа в её <br /> чистом проявлении
             </h2>
           </div>
-          <p className="text-gray-500 max-w-sm font-light leading-relaxed">
+          <p className="text-gray-500 max-w-sm text-sm font-light leading-relaxed">
             Мы отбираем только те слэбы, которые прошли естественную сушку и обладают выразительным характером.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {materials.map((item, index) => (
             <motion.div
               key={index}
@@ -57,19 +57,22 @@ export default function Materials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.8 }}
-              className={`group relative overflow-hidden monolith-card p-0 !border-white/5 ${item.size}`}
+              className="luxury-card h-full flex flex-col group border border-white/5 bg-white/[0.01]"
             >
-              <Image 
-                src={item.image}
-                alt={item.title}
-                fill
-                className="object-cover transition-transform duration-1000 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+              <div className="relative aspect-[16/10] overflow-hidden">
+                <Image 
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 25vw"
+                  className="object-cover transition-transform duration-1000 group-hover:scale-110 opacity-70 grayscale group-hover:grayscale-0"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-60" />
+              </div>
               
-              <div className="absolute bottom-0 left-0 p-8 w-full translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                <h3 className="text-2xl font-display text-white mb-2">{item.title}</h3>
-                <p className="text-white/60 text-sm font-light leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+              <div className="p-5 space-y-3 flex-grow">
+                <h3 className="text-lg font-bold text-white tracking-tight leading-tight">{item.title}</h3>
+                <p className="text-[11px] text-gray-500 leading-relaxed font-light">
                   {item.description}
                 </p>
               </div>

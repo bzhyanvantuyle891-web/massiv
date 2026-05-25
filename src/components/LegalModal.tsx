@@ -27,18 +27,18 @@ export default function LegalModal({ isOpen, onClose, title, content }: LegalMod
             initial={{ opacity: 0, scale: 0.95, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 30 }}
-            className="relative w-full max-w-4xl max-h-[80vh] bg-[#0c0c0c] border border-white/5 rounded-[2rem] p-8 md:p-16 overflow-y-auto artisan-scrollbar shadow-2xl"
+            className="relative w-full max-w-2xl max-h-[85vh] bg-[#0c0c0c] border border-white/5 rounded-2xl p-6 md:p-10 overflow-y-auto artisan-scrollbar shadow-2xl"
           >
             <button 
               onClick={onClose}
-              className="absolute top-8 right-8 text-white/20 hover:text-white transition-all hover:rotate-90"
+              className="absolute top-6 right-6 text-white/20 hover:text-white transition-all hover:rotate-90"
             >
-              <X size={24} />
+              <X size={20} />
             </button>
 
-            <div className="space-y-8">
-              <h3 className="text-3xl md:text-5xl font-display text-white tracking-tight italic">{title}</h3>
-              <div className="text-gray-400 font-light leading-relaxed space-y-6 text-sm md:text-base">
+            <div className="space-y-6">
+              <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight uppercase">{title}</h3>
+              <div className="text-gray-500 font-light leading-relaxed space-y-4 text-[13px]">
                 {content.split('\n\n').map((paragraph, i) => (
                   <p key={i}>{paragraph}</p>
                 ))}

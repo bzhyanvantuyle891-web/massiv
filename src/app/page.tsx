@@ -12,16 +12,7 @@ import Service from '@/components/Service';
 import Footer from '@/components/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
 
-const Showroom = dynamic(() => import('@/components/Showroom'), { 
-  ssr: false,
-  loading: () => <div className="h-[70vh] bg-black animate-pulse" /> 
-});
-
 const Collections = dynamic(() => import('@/components/Collections'), {
-  ssr: true
-});
-
-const Engineering = dynamic(() => import('@/components/Engineering'), {
   ssr: true
 });
 
@@ -38,6 +29,7 @@ const LegalModal = dynamic(() => import('@/components/LegalModal'), {
 });
 
 export default function Home() {
+  const [activeModel, setActiveModel] = useState<'monolith' | 'nature' | 'dark'>('monolith');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [legalModal, setLegalModal] = useState<{ open: boolean; title: string; content: string }>({
     open: false, title: '', content: ''
@@ -57,22 +49,18 @@ export default function Home() {
   return (
     <main id="main" className="min-h-screen bg-[#050505] selection:bg-[rgb(var(--accent-wood))] selection:text-white">
       <Navbar onConnectClick={openModal} />
-      <Hero onOrderClick={openModal} />
+      <Hero onOrderClick={openModal} activeModel={activeModel} onModelChange={setActiveModel} />
       
       <section id="philosophy"><Philosophy /></section>
+
       <section id="workshop"><Workshop /></section>
       
-      {/* 360 & AR Unified Component */}
-      <Showroom />
-      
-      <section id="collections">
-        <Collections onDetailClick={openModal} />
-      </section>
-
-      <Engineering />
       <FinalCTA onOrderClick={openModal} />
+
+      <section id="service"><Service /></section>
+
       <Production />
-      <Service />
+      
       <Footer onLegalClick={openLegal} />
 
       <ScrollToTop />

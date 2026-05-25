@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 
 import Navbar from '@/components/Navbar';
@@ -41,6 +41,13 @@ export default function Home() {
     };
     setLegalModal({ open: true, ...texts[type] });
   };
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.history.scrollRestoration = 'manual';
+      window.scrollTo(0, 0);
+    }
+  }, []);
 
   return (
     <main id="main" className="min-h-screen bg-[#050505] selection:bg-[rgb(var(--accent-wood))] selection:text-white">
